@@ -833,9 +833,9 @@ def admin_dashboard():
         with col2:
             st.warning("Danger Zone")
             stock_type_to_reset = "parts_stock"
-            if st.button(f"RESET {stock_type_to_reset.replace('_', ' ').upper()} (Hard Delete)", type="primary", key="reset_parts_stock"):
+            with st.popover(f"RESET {stock_type_to_reset.replace('_', ' ').upper()}", use_container_width=True):
                 st.warning(f"Are you sure you want to delete ALL data for {stock_type_to_reset}? This cannot be undone.")
-                if st.button("Confirm Reset", type="danger"):
+                if st.button("Confirm Reset", type="danger", key="confirm_reset_parts"):
                     with st.status("Resetting stock...", expanded=True) as status:
                         logic.reset_stock(stock_type_to_reset)
                         status.update(label="Stock reset complete!", state="complete", expanded=False)
@@ -861,7 +861,7 @@ def admin_dashboard():
         with col2:
             st.warning("Danger Zone")
             stock_type_to_reset = "HBD_stock"
-            if st.button(f"RESET {stock_type_to_reset.replace('_', ' ').upper()} (Hard Delete)", type="primary", key="reset_hbd_stock"):
+            with st.popover(f"RESET {stock_type_to_reset.replace('_', ' ').upper()}", use_container_width=True):
                 st.warning(f"Are you sure you want to delete ALL data for {stock_type_to_reset}? This cannot be undone.")
                 if st.button("Confirm Reset", type="danger", key="confirm_reset_hbd"):
                     with st.status("Resetting stock...", expanded=True) as status:
@@ -910,9 +910,9 @@ def admin_dashboard():
                     
                     st.warning("Danger Zone")
                     stype_orders = "parts_stock" if label == "Parts" else "HBD_stock"
-                    if st.button(f"CLEAR ALL {label.upper()} ORDERS", type="primary", key=f"del_all_{label}"):
+                    with st.popover(f"CLEAR ALL {label.upper()} ORDERS", use_container_width=True):
                         st.warning(f"Are you sure you want to delete ALL {label} orders? This cannot be undone.")
-                        if st.button("Clear Order Overview", type="danger"):
+                        if st.button("Clear Order Overview", type="danger", key=f"confirm_clear_{label}"):
                             with st.status("Clearing orders...", expanded=True) as status:
                                 logic.delete_all_orders(stype_orders)
                                 status.update(label="Orders cleared!", state="complete", expanded=False)
@@ -944,9 +944,9 @@ def admin_dashboard():
         
         st.divider()
         st.warning("⚠️ GLOBAL DATA DELETION")
-        if st.button("DELETE ALL USERS' ORDER HISTORY (Global Wipe)", type="primary"):
+        with st.popover("DELETE ALL USERS' ORDER HISTORY (Global Wipe)", use_container_width=True):
             st.warning("Are you sure you want to delete ALL users' order history? This cannot be undone.")
-            if st.button("Confirm Global Order History Wipe", type="danger"):
+            if st.button("Confirm Global Order History Wipe", type="danger", key="confirm_global_wipe"):
                 with st.status("Wiping all order history...", expanded=True) as status:
                     logic.delete_all_users_history()
                     status.update(label="All order history wiped!", state="complete", expanded=False)
