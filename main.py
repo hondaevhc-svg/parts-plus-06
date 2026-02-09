@@ -835,7 +835,7 @@ def admin_dashboard():
             stock_type_to_reset = "parts_stock"
             with st.popover(f"RESET {stock_type_to_reset.replace('_', ' ').upper()}", use_container_width=True):
                 st.warning(f"Are you sure you want to delete ALL data for {stock_type_to_reset}? This cannot be undone.")
-                if st.button("Confirm Reset", type="danger", key="confirm_reset_parts"):
+                if st.button("Confirm Reset", type="primary", key="confirm_reset_parts"):
                     with st.status("Resetting stock...", expanded=True) as status:
                         logic.reset_stock(stock_type_to_reset)
                         status.update(label="Stock reset complete!", state="complete", expanded=False)
@@ -863,7 +863,7 @@ def admin_dashboard():
             stock_type_to_reset = "HBD_stock"
             with st.popover(f"RESET {stock_type_to_reset.replace('_', ' ').upper()}", use_container_width=True):
                 st.warning(f"Are you sure you want to delete ALL data for {stock_type_to_reset}? This cannot be undone.")
-                if st.button("Confirm Reset", type="danger", key="confirm_reset_hbd"):
+                if st.button("Confirm Reset", type="primary", key="confirm_reset_hbd"):
                     with st.status("Resetting stock...", expanded=True) as status:
                         logic.reset_stock(stock_type_to_reset)
                         status.update(label="Stock reset complete!", state="complete", expanded=False)
@@ -912,7 +912,7 @@ def admin_dashboard():
                     stype_orders = "parts_stock" if label == "Parts" else "HBD_stock"
                     with st.popover(f"CLEAR ALL {label.upper()} ORDERS", use_container_width=True):
                         st.warning(f"Are you sure you want to delete ALL {label} orders? This cannot be undone.")
-                        if st.button("Clear Order Overview", type="danger", key=f"confirm_clear_{label}"):
+                        if st.button("Clear Order Overview", type="primary", key=f"confirm_clear_{label}"):
                             with st.status("Clearing orders...", expanded=True) as status:
                                 logic.delete_all_orders(stype_orders)
                                 status.update(label="Orders cleared!", state="complete", expanded=False)
@@ -946,7 +946,7 @@ def admin_dashboard():
         st.warning("⚠️ GLOBAL DATA DELETION")
         with st.popover("DELETE ALL USERS' ORDER HISTORY (Global Wipe)", use_container_width=True):
             st.warning("Are you sure you want to delete ALL users' order history? This cannot be undone.")
-            if st.button("Confirm Global Order History Wipe", type="danger", key="confirm_global_wipe"):
+            if st.button("Confirm Global Order History Wipe", type="primary", key="confirm_global_wipe"):
                 with st.status("Wiping all order history...", expanded=True) as status:
                     logic.delete_all_users_history()
                     status.update(label="All order history wiped!", state="complete", expanded=False)
